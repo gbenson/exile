@@ -1,0 +1,24 @@
+diff --git a/src/b2/BeebState.cpp b/src/b2/BeebState.cpp
+index 5051b79..9c935fe 100644
+--- a/src/b2/BeebState.cpp
++++ b/src/b2/BeebState.cpp
+@@ -6,6 +6,7 @@
+ #include <beeb/BBCMicro.h>
+ #include <beeb/TVOutput.h>
+ #include <string.h>
++#include <fstream>
+ 
+ //////////////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////////////////////////////
+@@ -78,6 +79,11 @@ const std::string &BeebState::GetName() const {
+ 
+ void BeebState::SetName(std::string name) {
+     m_name = name;
++
++    std::ofstream fs(name, std::ios::out | std::ios::binary | std::ios::app);
++
++    fs.write((const char *) m_beeb->GetRAM(), 1<<15);
++    fs.close();
+ }
+ 
+ //////////////////////////////////////////////////////////////////////////
